@@ -88,14 +88,14 @@
     {{ media.preview_image | image_url: width: 1100 | image_tag:
       sizes: sizes,
       widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
-      alt: media.preview_image.alt | escape
+      alt: media.preview_image.alt | escape 
     }}
     {% else %}  
     {{ media.preview_image | image_url: width: 1946 | image_tag:
       loading: lazy,
       sizes: sizes,
       widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
-      alt: media.preview_image.alt | escape
+      alt: media.preview_image.alt | escape |replace: 'src=','src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-class="LazyLoad" data-src=' | replace: 'srcset=', 'data-srcset='
     }}
     {% endif %}  
   </div>

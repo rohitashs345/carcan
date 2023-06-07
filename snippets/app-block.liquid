@@ -1,0 +1,106 @@
+<!-- BEGIN app block: shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507 -->
+  <script type="lazyload_int" data-src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=Sx2t7i"></script>
+  <script type="lazyload_int">!function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}();</script>
+<!-- END app app block -->
+<script type="lazyload_int" data-src="https://cdn.shopify.com/extensions/03eb6f16-6314-4d18-930b-9621e7a77aa3/0.6.0/assets/message-bar.js"></script>
+<link data-href="https://cdn.shopify.com/extensions/03eb6f16-6314-4d18-930b-9621e7a77aa3/0.6.0/assets/message-bar.css" rel="stylesheet" type="text/css" media="all">
+<!-- BEGIN app block: shopify://apps/candy-rack-all-in-one-upsell/blocks/head/cb9c657f-334f-4905-80c2-f69cca01460c -->
+<script type="lazyload_int" data-src="https://candyrack.ds-cdn.com/static/main.js?shop=car-can.myshopify.com"></script>
+
+<!-- END app app block -->
+<!-- BEGIN app block: shopify://apps/wisepops-email-sms-popups/blocks/app-embed/e7d7a4f7-0df4-4073-9375-5f36db513952 -->
+<script type="lazyload_int">
+  // Create the wisepops() function
+  window.WisePopsObject = window.WisePopsObject || 'wisepops';
+  window[window.WisePopsObject] = function() {
+    (window[window.WisePopsObject].q = window[window.WisePopsObject].q || []).push(arguments);
+  };
+  window[window.WisePopsObject].l = new Date().getTime();
+
+  // Disable deprecated snippet
+  window._wisepopsSkipShopifyDeprecatedSnippet = true;
+
+  document.addEventListener('wisepops.after-initialization', function () {
+    // https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie/Simple_document.cookie_framework
+    function getCookieValue(sKey) {
+      if (!sKey) { return null; }
+      return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+    }
+    function getTotalInventoryQuantity() {
+      var variants = null;
+      if (!variants) {
+        return null;
+      }
+
+      var totalQuantity = 0;
+      for (var i in variants) {
+        if (variants[i] && variants[i].inventory_quantity) {
+          totalQuantity += variants[i].inventory_quantity;
+        } else {
+          return null;
+        }
+      }
+      return totalQuantity;
+    }
+    function getMapCartItems(key){
+      var cartItems = [{"id":39623357071494,"properties":null,"quantity":1,"variant_id":39623357071494,"key":"39623357071494:ee70e3015fc9fbb101697b60c61287cd","title":"CAR SEAT POCKET","price":2000,"original_price":2000,"discounted_price":2000,"line_price":2000,"original_line_price":2000,"total_discount":0,"discounts":[],"sku":"12855461-black-1","grams":0,"vendor":"CarCan","taxable":true,"product_id":5162909106310,"product_has_only_default_variant":true,"gift_card":false,"final_price":2000,"final_line_price":2000,"url":"\/products\/car-pocket?variant=39623357071494","featured_image":{"aspect_ratio":1.0,"alt":"CAR SEAT POCKET","height":480,"url":"\/\/carcan.com\/cdn\/shop\/files\/carseat1_cf1c79ad-adf4-4ff4-80a9-f99f6f5aa4ea.jpg?v=1684829038","width":480},"image":"\/\/carcan.com\/cdn\/shop\/files\/carseat1_cf1c79ad-adf4-4ff4-80a9-f99f6f5aa4ea.jpg?v=1684829038","handle":"car-pocket","requires_shipping":true,"product_type":"","product_title":"CAR SEAT POCKET","product_description":"\nGET ORGANIZED WITH THE CAR SEAT POCKET! \nStay organized with the Car Seat Pocket! Store your keys, cards, money, phone, charger, sunglasses, perfume, lip balm and garage remote with this handy attachment. \nThe Car Seat Pocket allows you to optimize storage for all your essentials while eliminating the number of dropped items that fall between your car seats.\nStop your coins, cash, and other important items from falling onto the floor. \n","variant_title":null,"variant_options":["Default Title"],"options_with_values":[{"name":"Title","value":"Default Title"}],"line_level_discount_allocations":[],"line_level_total_discount":0}];
+      return cartItems.map(function (item) {
+        return item[key];
+      })
+      .filter(function (item){
+        if (item !== undefined && item !== null && item !== "") {
+          return true;
+        }
+        return false;
+      })
+      .join(',');
+    }
+
+    // Set built-in properties
+    window[window.WisePopsObject]('properties', {
+      cart: {
+        discount_code: getCookieValue('discount_code'),
+        item_count: 1,
+        total_price: 2000 / 100,
+        skus: getMapCartItems('sku'),
+      },
+      customer: {
+        accepts_marketing: null,
+        is_logged_in:  false ,
+        last_order: {
+          created_at: null,
+        },
+        orders_count: null,
+        total_spent: (isNaN(null) ? null : (null / 100)),
+        tags:  null ,
+        email: null,
+        first_name: null,
+        last_name: null,
+      },
+      product: {
+        available: null,
+        price:  null ,
+        tags: null,
+        total_inventory_quantity: getTotalInventoryQuantity(),
+      },
+    }, { temporary: true });
+
+    // Custom event when product added to cart
+    var shopifyTrackFunction = window.ShopifyAnalytics && ShopifyAnalytics.lib && ShopifyAnalytics.lib.track;
+    var lastAddedToCartTimestamp = 0;
+    if (shopifyTrackFunction) {
+      ShopifyAnalytics.lib.track = function () {
+        if (arguments[0] === 'Added Product') {
+          var currentTimestamp = Date.now();
+          if (currentTimestamp > lastAddedToCartTimestamp + 5000) {
+            window[window.WisePopsObject]('event', 'product-added-to-cart');
+            lastAddedToCartTimestamp = currentTimestamp;
+          }
+        }
+        shopifyTrackFunction.apply(this, arguments);
+      };
+    }
+  });
+</script>
+
+<!-- END app app block -->

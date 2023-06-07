@@ -1,4 +1,4 @@
-<script>
+<script type="lazyload_int">
 var head = document.head;
 var script = document.createElement('script');
 script.type = 'text/javascript';
@@ -8,6 +8,7 @@ head.appendChild(script);
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
+    {% render 'wnw_header' %}
   {% render 'script-cdn' %}
     {% render 'pre-header' %}
     {% render 'yett' %}
@@ -19,37 +20,37 @@ head.appendChild(script);
     <meta name="msvalidate.01" content="B446E3BF1BBEFBCFBB4BC3E39598FF97" />
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
      {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
     
 <!-- slick slider  -->
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-	<script
+    <link rel="stylesheet" type="text/css" data-href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+	{% comment %}<script
 	  src="https://code.jquery.com/jquery-3.6.0.js"
 	  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-	  crossorigin="anonymous"></script>
+	  crossorigin="anonymous"></script>{% endcomment %}
 	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script>
-      $(function(){
-    if (window.location.href.indexOf("en-uk") > -1) {
-     $('#norml').hide();
-     $('#en-norml').show();
-      $('#rb-psd').hide();
-     $('#rr-sh').show();
-      var e =$('<span class="comp-cros"><s class="price-item price-item--regular rb-fi"> £19.98 </s></span>');
-       $('.price__regular').append(e); 
-      $('img.leo-22.leo-des-img').hide();
-    }  else if ( (window.location.href.indexOf("en-eu") > -1) || (window.location.href.indexOf("de-de") > -1) || (window.location.href.indexOf("de") > -1)) {
-      $('#norml').hide();
-     $('#tdmr').show();
-      $('#rb-psd').hide();
-     $('#rr-sh2').show();
-      $('img.leo-22.leo-des-img').hide();
-    }
-    else {
-       
-    }
-        });
+    <script type="lazyload_int">
+          $(function(){
+        if (window.location.href.indexOf("en-uk") > -1) {
+         $('#norml').hide();
+         $('#en-norml').show();
+          $('#rb-psd').hide();
+         $('#rr-sh').show();
+          var e =$('<span class="comp-cros"><s class="price-item price-item--regular rb-fi"> £19.98 </s></span>');
+           $('.price__regular').append(e); 
+          $('img.leo-22.leo-des-img').hide();
+        }  else if ( (window.location.href.indexOf("en-eu") > -1) || (window.location.href.indexOf("de-de") > -1) || (window.location.href.indexOf("de") > -1)) {
+          $('#norml').hide();
+         $('#tdmr').show();
+          $('#rb-psd').hide();
+         $('#rr-sh2').show();
+          $('img.leo-22.leo-des-img').hide();
+        }
+        else {
+           
+        }
+            });
     </script>
     
     {%- if settings.favicon != blank -%}
@@ -75,11 +76,28 @@ head.appendChild(script);
     {% render 'meta-tags' %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link data-href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    <script src="path/to/lazysizes.min.js" async></script>
+    {% comment %}<script src="path/to/lazysizes.min.js" async></script>{% endcomment %}
 
-    {{ content_for_header }}
+    
+    {%- if request.design_mode or template contains 'cart' or template contains 'checkout' -%}
+        {{ content_for_header }}
+    {%- else -%}
+        {% capture content_for_header2 %}{{ content_for_header }}{% endcapture %}
+        {{ content_for_header2 | replace: ' defer="defer" ', ' type="lazyload_int" ' | replace: " src=", " data-src="| replace: "DOMContentLoaded", "w3-DOMContentLoaded" | replace: "window.addEventListener('load', asyncLoad, false);", "window.addEventListener('w3-DOMContentLoaded', asyncLoad, false);" | replace: "addEventListener('load', prefetchAssets);", "addEventListener('w3-DOMContentLoaded', prefetchAssets);" }}
+        <script>var trekkie=[];trekkie.integrations=!0;window.BOOMR={},window.BOOMR.version=true;</script>
+    {%- endif -%}
+
+    {% if template contains "index" %}
+    	{% render "index-css" %}
+    {% elsif template contains "collection" %}
+    	{% render "collection-css" %}
+    {% elsif template contains "product" %}
+    	{% render "product-css" %}
+    {% else %}
+    	{% render "all-css" %}
+    {% endif %}
 
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
@@ -88,12 +106,11 @@ head.appendChild(script);
     %}
 
    
- {{ 'leo.css' | asset_url | stylesheet_tag }}
-  {{ 'leo-mobile.css' | asset_url | stylesheet_tag }}
-    {{ 'base.css' | asset_url | stylesheet_tag }}
-
-        <link rel="stylesheet" href="{{ 'merox_swiper_styles.css' | asset_url }}">
-        <link rel="stylesheet" href="{{ 'video-shop-feed-premium.css' | asset_url }}">
+   <link rel="stylesheet" data-href="{{ 'leo.css' | asset_url }}">
+   <link rel="stylesheet" data-href="{{ 'leo-mobile.css' | asset_url }}">
+   <link rel="stylesheet" data-href="{{ 'base.css' | asset_url }}">
+   <link rel="stylesheet" data-href="{{ 'merox_swiper_styles.css' | asset_url }}">
+   <link rel="stylesheet" data-href="{{ 'video-shop-feed-premium.css' | asset_url }}">
   
     {%- unless settings.type_body_font.system? -%}
       <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
@@ -103,7 +120,7 @@ head.appendChild(script);
     {%- endunless -%}
 
     {%- if settings.predictive_search_enabled -%}
-      <link rel="stylesheet" href="{{ 'component-predictive-search.css' | asset_url }}" media="print" onload="this.media='all'">
+      <link rel="stylesheet" data-href="{{ 'component-predictive-search.css' | asset_url }}">
     {%- endif -%}
 
     <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
@@ -112,14 +129,14 @@ head.appendChild(script);
     }
     </script>
     
-  <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+  
   
         
         {% if template == 'index' %}
         
           {% endif %}
-          {{ 'slick.css' | asset_url | stylesheet_tag }}
-          {{ 'slick-theme.css' | asset_url | stylesheet_tag }}
+           <link rel="stylesheet" data-href="{{ 'slick.css' | asset_url }}">
+           <link rel="stylesheet" data-href="{{ 'slick-theme.css' | asset_url }}">
            <script src="{{ 'slick.js' | asset_url }}"></script>
 
 {% render 'google-tag' %}
@@ -137,14 +154,15 @@ head.appendChild(script);
 
     
     <script src="{{ 'video-shop-feed-premium.js' | asset_url }}" defer></script>
-        
+        {% render 'custom-css' %}
+        {% render 'app-block' %}
         </head>
         
   
 <!-- ******************************************************************************************** -->
         <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10936664719"></script>   
-<script>
+<script type="lazyload_int" data-src="https://www.googletagmanager.com/gtag/js?id=AW-10936664719"></script>   
+<script type="lazyload_int">
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -193,5 +211,6 @@ Shopify.Products.recordRecentlyViewed();
 </script>
 
 {% endif %}
+{% render 'wnw_footer' %}
 </body>
 </html>

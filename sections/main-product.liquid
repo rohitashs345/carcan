@@ -11,14 +11,14 @@
   class="page-width section-{{ section.id }}-padding"
   data-section="{{ section.id }}"
 >
-  {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
-  {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
-  {{ 'component-price.css' | asset_url | stylesheet_tag }}
-  {{ 'component-rte.css' | asset_url | stylesheet_tag }}
-  {{ 'component-slider.css' | asset_url | stylesheet_tag }}
-  {{ 'component-rating.css' | asset_url | stylesheet_tag }}
-  {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
-  {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" data-href="{{ 'section-main-product.css' | asset_url }}">
+<link rel="stylesheet" data-href="{{ 'component-accordion.css' | asset_url }}">
+<link rel="stylesheet" data-href="{{ 'component-price.css' | asset_url }}">
+<link rel="stylesheet" data-href="{{ 'component-rte.css' | asset_url }}">
+<link rel="stylesheet" data-href="{{ 'component-slider.css' | asset_url }}">
+<link rel="stylesheet" data-href="{{ 'component-rating.css' | asset_url }}">
+<link rel="stylesheet" data-href="{{ 'component-loading-overlay.css' | asset_url }}">
+<link rel="stylesheet" data-href="{{ 'component-deferred-media.css' | asset_url }}">
 
   {%- style -%}
     .section-{{ section.id }}-padding {
@@ -661,7 +661,7 @@
                   {%- endform -%}
                 </product-form>
 
-                {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
+              <link rel="stylesheet" data-href="{{ 'component-pickup-availability.css' | asset_url }}">                
 
                 {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities | where: 'pick_up_enabled', true -%}
 

@@ -26,7 +26,7 @@
      {% endif %}
      {% if section.settings.html !=blank%}
 <div class="leo-video">
-      {{ section.settings.html }}
+      {{ section.settings.html | replace: '<iframe src=' , '<iframelazy  data-class="LazyLoad" data-src=' | replace: '</iframe>','</iframelazy>' | replace: '<script src=' , '<script type="lazyload_int" data-src='}}
   </div>
    {% endif %}
 </div>
