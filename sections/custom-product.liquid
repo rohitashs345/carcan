@@ -1,0 +1,140 @@
+
+<div class="page-width leo-main">
+  <div class="leo-layout">
+    <div class="flex-st">
+   {% if section.settings.image1 !=blank %}
+    <div class="leo-col">
+ <img class="leo-img" src="{{ section.settings.image1 | img_url: '1600x' }}" alt="leo">
+    </div>
+     {% endif %}
+     {% if section.settings.text1 !=blank %}
+    <div class="leo-col" style="color:{{sections.settings.color}}">
+      <h1 class="leo-h1">{{ section.settings.text1 }}</h1>
+      
+    </div>
+{% endif %}
+{% if section.settings.image2 !=blank %}
+    <div class="leo-col">
+ <img class="leo-img" src="{{ section.settings.image2 | img_url: '1600x' }}" alt="leo">
+    </div>
+     {% endif %}
+    </div>
+     {% if section.settings.imageu !=blank %}
+    <div class="leo-col" style="margin: 5px 0;">
+ <img class="leo-imyg" src="{{ section.settings.imageu | img_url: '1600x' }}" alt="leo">
+    </div>
+     {% endif %}
+     {% if section.settings.html !=blank%}
+<div class="leo-video">
+      {{ section.settings.html }}
+  </div>
+   {% endif %}
+</div>
+   {%for block in section.blocks%}
+     
+<div class="leo-img-st">
+   {% if block.settings.textr !=blank%}
+<h1 class="leo-h1 srt" style="color:{{block.settings.colorr}}">{{ block.settings.textr }}</h1>
+  {% endif %}
+   {% if block.settings.imagee !=blank %}
+<img class="leo-{{ forloop.index }} merox-lazy leo-des-img" src="https://cdn.shopify.com/s/files/1/1782/1187/files/giphy-0-min-lazy.jpg?v=1672121289" data-src="{{ block.settings.imagee | img_url: '800x'}}" alt="leo">
+ {% endif %}
+      {% if block.settings.html-in !=blank%}
+  <div class="rb-cst-bl">
+      {{ block.settings.html-in }}
+  </div>
+   {% endif %}
+</div>
+   
+    {% endfor %}
+</div>
+
+
+{% schema %}
+  {
+    "name": "Custom Product",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image1",
+        "label": "Select First Logo"
+      },
+      {
+        "type": "color",
+        "id": "color",
+        "label": "Heading Color"
+      },
+       {
+        "type": "text",
+        "id": "text1",
+        "label": "Heading"
+      },
+      
+      {
+        "type": "image_picker",
+        "id": "image2",
+        "label": "Select Second Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "imageu",
+        "label": "Select Second Logo"
+      },
+      {
+      "type": "html",
+      "id": "html",
+      "label": "HTML content",
+      "default": "<p>Write your own custom HTML content.</p>"
+    }
+    ],
+    "blocks" : [
+    {
+      "type" : "block",
+      "name" : "Block",
+      "settings" : [
+              
+        
+          
+     {
+        "type": "color",
+        "id": "colorr",
+        "label": "Heading Color"
+      },
+                
+     {
+        "type": "text",
+        "id": "textr",
+        "label": "Heading"
+      },
+          {
+        "type": "image_picker",
+        "id": "imagee",
+        "label": "Image"
+      },
+        {
+      "type": "html",
+      "id": "html-in",
+      "label": "HTML content"
+    }
+      ]
+    }
+  ],
+"presets": [
+{
+"name": "Custom Product",
+"category": "Custom"
+}
+]
+  
+  }
+{% endschema %}
+<style>
+  img.leo-des-img {
+    height: auto !important;
+    width:100%;
+} 
+  img.leo-imyg {
+    max-width: 100%;
+    height: auto;
+}
+</style>

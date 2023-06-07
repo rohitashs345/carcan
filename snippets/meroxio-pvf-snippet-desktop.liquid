@@ -1,0 +1,184 @@
+<section id="outer-slider-desk" class="page-width outer-slider-desktop outer-slider-desktop-{{ section.id | replace : '-', '' }} m-reels-slider">
+  {% if section.settings.heading != blank %}
+    <div class="m_sectionHeading">{{ section.settings.heading }}</div>
+  {% endif %}
+
+  <div id="modalchart1" class="modal21">
+    <div class="m_modalAnimation">
+    <div class="modalframe1">
+      {% comment %} <span class="m_shareProductDesktop"><svg fill="#fff" width="20" height="20" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M1478.496 1318.496c132.692 0 240.602 107.91 240.602 240.602 0 132.691-107.91 240.601-240.602 240.601-132.691 0-240.601-107.91-240.601-240.601 0-21.053 3.609-41.143 8.661-60.632 10.467-39.94 30.557-76.03 58.346-105.143 43.79-45.834 105.263-74.827 173.594-74.827ZM440.902 716.992c67.61 0 128.481 28.15 172.27 73.143 28.031 28.873 48.121 64.842 58.948 104.782 5.534 20.09 9.384 40.782 9.384 62.677 0 24.18-4.692 47.278-11.429 69.293-11.91 39.459-32.962 74.948-61.955 103.098-43.308 41.985-102.135 68.21-167.218 68.21-132.691 0-240.601-107.91-240.601-240.601 0-132.692 107.91-240.602 240.601-240.602Zm1037.594-596.691c132.692 0 240.602 107.91 240.602 240.601 0 132.692-107.91 240.602-240.602 240.602-67.488 0-128.24-28.03-171.91-72.782-28.15-28.872-48.36-64.842-59.188-104.782-5.533-20.21-9.503-41.023-9.503-63.038 0-132.691 107.91-240.601 240.601-240.601Zm0 1077.894c-112.842 0-212.571 53.053-278.737 134.497L776.421 1088.24c15.88-40.662 25.384-84.452 25.384-130.647 0-43.79-9.023-85.173-23.339-124.03l422.978-244.33c66.285 80.24 165.173 132.57 277.052 132.57 198.978 0 360.902-161.924 360.902-360.902C1839.399 161.925 1677.475 0 1478.496 0c-198.977 0-360.902 161.925-360.902 360.902 0 43.91 9.023 85.534 23.459 124.391l-422.858 244.21c-66.165-80.36-165.172-132.811-277.293-132.811C241.925 596.692 80 758.617 80 957.594c0 198.977 161.925 360.902 360.902 360.902 109.594 0 206.797-50.165 272.963-127.519l426.346 246.136c-13.835 38.376-22.617 79.037-22.617 121.985 0 198.977 161.925 360.902 360.902 360.902 198.978 0 360.902-161.925 360.902-360.902 0-198.978-161.924-360.903-360.902-360.903" fill-rule="evenodd"></path> </g></svg></span> {% endcomment %}
+      <span class="m_shareProductDesktop"><svg fill="#fff" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 108.3"><path d="M96.14,12.47l-76.71-1.1,28.3,27.85L96.14,12.47ZM53.27,49l9.88,39.17L102.1,22,53.27,49ZM117,1.6a5.59,5.59,0,0,1,4.9,8.75L66.06,105.21a5.6,5.6,0,0,1-10.44-1.15L41.74,49,1.67,9.57A5.59,5.59,0,0,1,5.65,0L117,1.6Z"></path></svg></span>
+      <span class="close1"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" color="#000" height="20" width="20" xmlns="http://www.w3.org/2000/svg" style="color:#000"><path fill="none" d="M0 0h24v24H0z"></path><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></span>
+
+      <div class="swiper popupSwiperDesktop">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+          <!-- Slides -->
+          {% for block in section.blocks %}
+
+            {% liquid
+              assign pagelink = block.settings.product
+              assign m_video = block.settings.video
+              if pagelink contains '/products/'
+                assign url = block.settings.product | split: '/products/' | last
+                assign prod = all_products[url]
+              elsif pagelink contains '/collections/'
+                assign url = block.settings.product | split: '/collections/' | last
+                assign prod = collections[url]
+              else
+                assign url = block.settings.product
+              endif
+            %}
+
+            {% if block.settings.video != blank %}
+              <div class="swiper-slide" data-vertical-index="{{ forloop.index }}">
+                <div class="m_desktop_popup_wrapper">
+                  <div class="m_videoWrapper {% if block.settings.product == blank %} fullWidthVideo{% endif %}">
+                    <video class="m_pvf_lazy m_pvf_lazyload" poster="{% if prod.featured_image != blank %} {{ prod.featured_image | image_url : width: 500 }}{% else %}{{ 'placeholder.jpg' | asset_img_url : '500x' }}{% endif %}" autoplay muted loop playsinline><source data-src="{{ m_video.sources[1].url }}" type="video/mp4"></video>
+                    {% if section.settings.enable_sound %}
+                    <div class="soundIconsFixed">
+                      <img loading="lazy" width="30" height="30" class="m_soundIconFixed m_muteIcon" src="{{ 'mute.svg' | asset_url }}" alt="Mute Icon">
+                      <img loading="lazy" width="30" height="30" class="m_soundIconFixed m_unmuteIcon" src="{{ 'unmute.svg' | asset_url }}" alt="Unmute Icon">
+                    </div>
+                    {% endif %}
+                  </div>
+                {% if block.settings.product != blank %}
+                  <div class="m_productInfoWrapper">
+                    <div class="m_productInfoBody">
+                      <div class="m_product_gallery_wrapper">
+                        <div class="m_product_gallery">
+                          {% for image in prod.images %}
+                            <img loading="lazy" width="200" height="200" class="m_productImage" src="{{ image | image_url : width: 300 }}" alt="{{ image.alt }}">
+                          {% endfor %}
+                        </div>
+                      </div>
+                      <div class="m_productPopupInfo">
+                        <div class="m_productTitle"><p>{{ prod.title }}</p></div>
+                        <p class="m_productPrice">{{ prod.price | money_without_trailing_zeros }}</p>
+                      </div>
+
+                      {% unless prod.has_only_default_variant %}
+                        <div class="m_product_variants_wrapper">
+                          <div class="m_product_variants">
+                            {%- for option in prod.options_with_values -%}
+                              <div class="m_productVariantsDropdown">
+                                <label>{{ option.name }}</label>
+                                <select>
+                                  {%- for value in option.values -%}
+                                    <option value="{{ value | escape }}" {% if option.selected_value == value %} selected="selected" {% endif %}>
+                                      {{- value -}}
+                                    </option>
+                                  {%- endfor -%}
+                                </select>
+                              </div>
+                            {%- endfor -%}
+                          </div>
+                        </div>
+                        <select class="m_productOriginalVariants">
+                          {% for variant in prod.variants %}
+                            <option class="m_originalVariants" data-title="{{ variant.title }}" value="{{ variant.id }}" data-qty="{{ variant.quantity }}">
+                              {{ variant.title }}
+                            </option>
+                          {% endfor %}
+                        </select>
+                      {% endunless %}
+
+                      {% if prod.description != blank %}
+                        <div class="m_product_description_desktop">
+                          <p class="m_descHeading">Description</p>
+                          <div class="m_shortDescription"><div class="m_descriptionContent">{{ prod.description }}</div><p class="moreDescription">Read More</p></div>
+                          <div class="m_longDescription">{{ prod.description }}<p class="lessDescription">Read Less</p></div>
+                        </div>
+                      {% endif %}
+
+                      <div class="m_sticky_cta_btns">
+                        <a href="{{ prod.url }}" class="m_go_to_product">
+                          <svg width="33" height="33" viewBox="-2.4 -2.4 28.80 28.80" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M12 3C4.5885 3 3 4.5885 3 12C3 19.4115 4.5885 21 12 21C19.4115 21 21 19.4115 21 12" stroke="#000" stroke-width="2" stroke-linecap="round"></path><path d="M20.5 3.5L15 9" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16 3H20.6717C20.853 3 21 3.14703 21 3.32837V8" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+                        </a>
+                        {% if prod.has_only_default_variant %}
+                          <div
+                            class="m_add_to_cart m_sticky_cta m_atc_btn_singleVariant {% unless prod.available %} m_disabledBtn{% endunless %}"
+                            onclick="m_pvf_addToCart('{{ prod.selected_or_first_available_variant.id }}', this)"
+                          >
+                            {% if prod.available %}Add To Cart{% else %}Sold Out{% endif %}
+                          </div>
+                        {% else %}
+                          <div class="m_add_to_cart m_sticky_cta m_atc_btn_variants {% unless prod.available %} m_disabledBtn{% endunless %}" onclick="m_pvf_addToCartVariant(this)">
+                            {% if prod.available %}Add To Cart{% else %}Sold Out{% endif %}
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="swiper-button-prev swiper-button-prev-{{ section.id | replace : '-', '' }}" tabindex="0" role="button" aria-label="Previous slide" aria-controls="" aria-disabled="false"></div>
+        <div class="swiper-button-next swiper-button-next-{{ section.id | replace : '-', '' }}" tabindex="0" role="button" aria-label="Next slide aria-controls="swiper-wrapper" aria-disabled="false"></div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="swiper mainSwiperDesktop m-swiper-container-desktop-hidden">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+      {% for block in section.blocks %}
+        {%- capture video -%}videoURL{{ forloop.op.index }}{%- endcapture -%}
+        {% liquid
+           assign pagelink = block.settings.product 
+           assign m_video = block.settings.video
+         %}
+        {% if block.settings.video != blank %}
+          <div class="swiper-slide">
+            <video class="m_pvf_lazy m_pvf_lazyload" poster="{% if prod.featured_image != blank %}{{ prod.featured_image | image_url : width: 500 }}{% else %}{{ 'placeholder.jpg' | asset_img_url : '500x' }}{% endif %}" autoplay muted loop playsinline><source data-src="{{ m_video.sources[1].url }}" type="video/mp4"></video>
+            {% if block.settings.product != blank %}
+              {% if pagelink contains '/products/' %}
+                {% liquid
+                  assign url = block.settings.product | split: '/products/' | last
+                  assign prod = all_products[url]
+                %}
+
+                <div class="m_verticalSlideInfoWrapper">
+                  <div class="m_fixedSliderInfo">
+                    <div class="m_verticalSlideInfo">
+                      <img loading="lazy" width="40" height="40" src="{{ prod.featured_image | image_url : width: 100 }}" alt="{{ prod.title }}">
+                      <div class="m_title_price_wrapper">
+                        <div class="m_productTitle"><p>{{ prod.title }}</p></div>
+                        <p class="m_productPrice">{{ prod.price | money_without_trailing_zeros }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              {% elsif pagelink contains '/collections/' %}
+                {% liquid
+                  assign url = block.settings.product | split: '/collections/' | last 
+                  assign prod = collections[url] 
+                %}
+                <div class="m_verticalSlideInfoWrapper">
+                  <div class="m_fixedSliderInfo">
+                    <div class="m_verticalSlideInfo">
+                      <img loading="lazy" width="50" height="50" src="{{ prod.image | image_url : width: 100 }}" alt="{{ prod.title }}">
+                      <div class="m_title_price_wrapper">
+                        <div class="m_productTitle"><p>{{ prod.title }}</p></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% else %}
+
+              {% endif %}
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="swiper-button-prev swiper-button-prev-{{ section.id | replace : '-', '' }}" tabindex="0" role="button" aria-label="Previous slide" aria-controls="" aria-disabled="false"></div>
+    <div class="swiper-button-next swiper-button-next-{{ section.id | replace : '-', '' }}" tabindex="0" role="button" aria-label="Next slide aria-controls="swiper-wrapper" aria-disabled="false"></div>
+  </div>
+</section>

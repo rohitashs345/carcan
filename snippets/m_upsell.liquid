@@ -1,0 +1,200 @@
+{% if settings.enable_checkoutUpsell %}
+
+<style>
+  .m_upsell_heading {
+      text-align: center;
+    font-weight: 700;
+  font-size: 14px!important;
+    margin: 18px 0;
+}
+  .m_loader, .m_loader:after {
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+}
+.m_loader {
+  display: none;
+  margin:0 auto;
+  font-size:10px;
+  position:relative;
+  text-indent:-9999em;
+  border-top:2px solid rgba(255,255,255,0.2);
+  border-right:2px solid rgba(255,255,255,0.2);
+  border-bottom:2px solid rgba(255,255,255,0.2);
+  border-left:2px solid #ffffff;
+  -webkit-transform:translateZ(0);
+  -ms-transform:translateZ(0);
+  transform:translateZ(0);
+  -webkit-animation:load8 1.1s infinite linear;
+  animation:load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+  0% {
+  -webkit-transform:rotate(0deg);
+  transform:rotate(0deg);
+}
+100% {
+  -webkit-transform:rotate(360deg);
+  transform:rotate(360deg);
+}
+}@keyframes load8 {
+  0% {
+  -webkit-transform:rotate(0deg);
+  transform:rotate(0deg);
+}
+100% {
+  -webkit-transform:rotate(360deg);
+  transform:rotate(360deg);
+}
+}
+
+  .upsellMain {
+    padding-bottom: 20px;
+    overflow: hidden;
+  }
+  .upsellProducts {
+    display: flex;
+    gap: 10px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    /*     max-width: 420px; */
+    width: 100%;
+  }
+  .upsellSlide {
+    padding: 5px;
+    min-width: 100px;
+  }
+  .upsellSlide img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 1px solid black;
+  }
+  .upsellSlide h3, .upsellSlide p {
+    font-size: 9px;
+    text-align: center;
+  }
+  .upsellSlide h3 {
+    margin-top: 5px;
+    word-break: break-all;
+    min-height: 21px;
+  }
+  .upsellSlide p {
+    margin-bottom: 10px;
+  }
+  .upsellBtn {
+    width: 90%;
+    cursor: pointer;
+    display: inline-block;
+    background-color: #19af42;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    font-size: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .order-summary__sections {
+    height: auto !important;
+  }
+  .upsellSlide select {
+    appearance: auto;
+    border: 1px solid black;
+    width: 100px;
+    text-overflow: ellipsis;
+    font-size: 11px;
+    margin: 10px 0;
+  }
+  .upsellProducts::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    margin-left: 0.5rem;
+  }
+  .upsellProducts::-webkit-scrollbar-track {
+    background: transparent;
+    border:1px solid #dfdfdf;
+  }
+  .upsellProducts::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10rem;
+  }
+  .upsellProducts::-webkit-scrollbar-corner {
+    display: none;
+  }
+  .upsellProducts::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+/*   @media(max-width: 600px) {
+    .upsellSlide div {
+      min-height: 60px;
+    }
+  } */
+</style>
+
+
+
+<div class="upsellMain">
+  {% if settings.upsell_heading != blank %}
+  <h2 class="m_upsell_heading title h2 text-center">{{ settings.upsell_heading }}</h2>
+    {% endif %}
+  <div class="upsellProducts">
+    {% for i in (1..6) %}
+    {%- capture index -%}upsellProduct{{ i | strip }}{%- endcapture -%}
+    <div class="upsellSlide upsellSlide{{ i }}" data-handle="{{ shop.url }}/products/{{ settings[index] }}.json">
+      <img class="pdImg" src="https://cdn.shopify.com/s/files/1/0562/9938/9113/files/Mob_Lazy-min.jpg?v=1657274927">
+      <div>
+        <h3 class="pdTitle"></h3>
+        <p class="pdPrice"></p>
+      </div>
+      <div class="upsellBtn">
+       <span class="addingText">ADD +</span>
+      <span class="m_loader"></span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+<script>
+  $(document).on(`page:load`, function() {
+    $('.upsellSlide').each(function(){
+      var handle = $(this).attr('data-handle');
+      var thiss = $(this);
+      $.getJSON(handle, function(data) {
+        var title = data.product.title;
+        var variantID = data.product.variants[0].id;
+        var price = data.product.variants[0].price;
+        var img = data.product.images[0].src;
+        $(thiss).find('.pdImg').attr('src', img);
+        $(thiss).find('.pdTitle').text(title);
+        $(thiss).find('.pdPrice').text('$'+price);
+        $(thiss).find('.upsellBtn').attr('data-var-id', variantID);
+      });
+    });
+
+
+    $('body').on('click', '.upsellBtn', function(){
+      $(this).find('.addingText').hide();
+      $(this).find('.m_loader').show();
+
+      var id = $(this).attr('data-var-id');
+      console.log(id);
+      $.ajax({
+        url: '/cart/add.js',
+        method: 'POST',
+        dataType: 'json',
+        data: {
+          quantity: 1,
+          id: id
+        },
+        success: function(data) {
+          location.reload();
+        }
+      });
+    });
+
+  });
+</script>
+
+  {% endif %}

@@ -1,0 +1,71 @@
+@media only screen and (min-width: 768px) {
+  .desk-hide{
+    display:none;
+  }
+}
+@media only screen and (max-width: 767px) {
+
+img.leo-imyg {
+    width: 100%;
+}
+  
+
+  .video-width{
+   min-height: 420px !important;
+    
+  }
+  img.leo-des-img {
+    width: 100% !important;
+
+}
+  .mn-video-rtio{
+  padding: 100% 0 0 0;
+  }
+  .timer {
+    display:block;
+  }
+  .subtitle {
+    font-size: 1.5rem!important;
+  }
+  .rb-info {
+    padding: 0 0rem!important;
+  }
+  h1.rb-crt-til {
+    font-size: 18px;
+}
+  .rb-pde {
+    margin: 2rem 0 1.5rem!important;
+}
+  .pIcon {
+      width: 4em;
+  }
+  .slider-buttons.no-js-hidden {
+    display: none;
+}
+  .Footer__PaymentList svg {
+    width: 38px;
+    height: 30px;
+}
+  .add-icons {
+    max-width: 38px;
+}
+  .add-list {
+    height: 26px;
+  }
+  .mob-hide{
+    display:none;
+  }
+  p.free-ship{
+    padding-left: 0px;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+   .leo-st-img-fre img {
+    height: 88px;
+    width: 90px;
+    
+    left: -18px;
+    top: -48px;
+}
+}

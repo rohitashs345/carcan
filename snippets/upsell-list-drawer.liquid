@@ -1,0 +1,108 @@
+<style>
+  .m_prod {
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+}
+  .m_cart_btnn {
+    cursor: pointer;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    column-gap: 10px;
+}
+  .m_pro_info {
+    flex-grow: 1;
+      font-size:13px;
+}
+.m_pro_image {
+    width: 30%;
+}
+  .m_pro_image img {
+    width: 100%;
+}
+.m_prod {
+    gap: 2rem;
+}
+.m_pro_info p {
+    margin-bottom: 0px;
+}
+
+.m_prod {
+    margin-bottom: 1rem;
+  position: relative;
+}
+  p.prodTitle {
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+  .m_cart_btnn span {
+    width: 75px;
+    display: block;
+    background: #19af42;
+    padding: 2px 10px;
+    border-radius: 2px;
+    text-align: center;
+    font-weight: 600;
+    color: #fff;
+}
+  .rb-select_item {
+    border: 1px solid #c3b6b6;
+    border-radius: 0;
+    width: 28%;
+    height: 25px;
+}
+  span.pd-num.crt-nmb {
+    left: 1px;
+    top: 1px;
+    font-size: 18px;
+    line-height: 25px;
+    width: 25px;
+    height: 25px;
+}
+  @media(max-width:767px){
+    p.prodTitle {
+    font-size: 14px;
+}
+  }
+</style>
+<!-- YOU MAY ALSO LIKE -->
+{% assign collection = settings.cart_drawer_collection %}
+<div class="m_recommendations" id="mrk-upsell">
+  <h4 class="m_u_may_like_title"><b>Top 15 Car Accessories</b></h4>
+  <div class="m_prod_recommendations">
+    {% for product in collection.products %}
+    <div class="m_prod">
+      {% comment %}<span class="pd-num crt-nmb">{{ forloop.index }}</span>{% endcomment %}
+      <div class="m_pro_image">
+        <img src="{{ product.featured_image |img_url: '200x' }}">
+      </div>
+      <div class="m_pro_info">
+        <p class="prodTitle">{{ product.title }}</p>
+       
+        {% if product.title =='VISOR ORGANIZER' or product.title =='NET ORGANIZER' or product.title =='Tissue holder' or product.title =='FIRST AID KIT'  %}
+        <span class="rb-discount ad-dis" >2 For $20 </span>
+        {% else %}
+           <p>{{ product.price | money }}</p>
+        {% endif %}  
+        <div class="m_cart_btnn">
+         {% if product.title =='VISOR ORGANIZER' or product.title =='NET ORGANIZER' or product.title =='Tissue holder' or product.title =='FIRST AID KIT'  %}
+          {% else %}  
+          <select class="rb-select_item">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+          {% endif %} 
+        <span data-variant-id="{{ product.selected_or_first_available_variant.id }}">Add &#43;</span>
+      </div>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>

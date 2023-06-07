@@ -1,0 +1,50 @@
+        
+<div class="merox_pvf_pro_slider_component" data-block-id="{{ section.id | replace : '-', '' }}" data-sound-config="{{ section.settings.enable_sound }}">
+{%- comment -%}  Developed by MeroxIO IT Solutions https://meroxio.com {%- endcomment -%}
+{% render 'meroxio-pvf-snippet-desktop' %}
+{% render 'meroxio-pvf-snippet-mobile' %}
+</div>
+{% schema %} 
+{
+  "name": "MeroxIO Reels - Premium",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Upload your videos in Settings > Files. Recommended Aspect ratio - 9:16"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "MeroxIO Product Video Feed - Pro"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sound",
+      "label": "Enable Sound?"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Video",
+      "type": "video",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Select Video",
+          "info": "Recommended Aspect ratio - 9:16"
+        },
+        {
+          "type": "url",
+          "id": "product",
+          "label": "Select Product"
+        }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "PVF REELS"
+  }]
+}
+{% endschema %}

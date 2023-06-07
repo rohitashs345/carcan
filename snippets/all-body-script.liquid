@@ -1,0 +1,134 @@
+<script>
+      window.shopUrl = '{{ request.origin }}';
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}'
+      };
+
+      window.cartStrings = {
+        error: `{{ 'sections.cart.cart_error' | t }}`,
+        quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`
+      }
+
+      window.variantStrings = {
+        addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+        soldOut: `{{ 'products.product.sold_out' | t }}`,
+        unavailable: `{{ 'products.product.unavailable' | t }}`,
+      }
+
+      window.accessibilityStrings = {
+        imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
+        shareSuccess: `{{ 'general.share.success_message' | t }}`,
+        pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
+        playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
+      }
+    </script>
+
+    {%- if settings.predictive_search_enabled -%}
+      <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+    <script>
+  function addItemToCart(){
+    var qty = $('.quantity__input[name="quantity"]').val();
+    console.log("Quantity>>",qty);
+    $.ajax({
+          type: 'POST',
+          url: '/cart/add.js',
+          async: false,
+          data: {
+            quantity: qty,
+            id: '39932559491206'
+          },
+          success: function (data) {
+            console.log('atc success: '+qty + id);
+          } 
+        });
+    
+    $('.meroxDropdowns select').each(function(){
+      var qty, id;
+      if($(this).attr('data-variant-id') == '') {
+        qty = parseInt(1);
+        id  = $(this).val();
+      } else {
+        qty = $(this).val();
+        id  = $(this).attr('data-variant-id');
+      }
+      console.log(id + qty);
+      if(qty > 0 && qty != '' && qty != null && qty != undefined ) {
+        $.ajax({
+          type: 'POST',
+          url: '/cart/add.js',
+          async: false,
+          data: {
+            quantity: qty,
+            id: id
+          },
+          success: function (data) {
+            localStorage.setItem('testing-main',data);
+            console.log('atc success: '+qty + id);
+            // window.location.href = '/cart';
+          } 
+        });
+      }
+    });
+  }
+  console.log("Track");
+   $('.addAdditionalItems').click(function(){
+      addItemToCart();   
+   });
+
+</script>
+  {{ "//cdn.shopify.com/s/files/1/0483/1546/5894/t/1/assets/optimizer.js" | script_tag}}
+  <!-- CRITEO START -->
+{% render 'criteo-tracking' %}
+<!-- CRITEO END -->
+
+<script>
+      var isReplaced = false;      
+      function MeroxIO_Function(){
+        if(!isReplaced){
+          window.yett.unblock();
+          console.log("apps lazyloaded successfully");
+          var lazyElements = document.getElementsByClassName("lazy-video");
+          for (var i = 0; i < lazyElements.length; i++) {
+            console.log(lazyElements[i].getAttribute("src"));
+
+            var element =  lazyElements[i];
+
+            if(element.getAttribute('data-src-scroll')){
+              element.setAttribute('src', element.getAttribute('data-src-scroll'));
+              element.removeAttribute('data-src-scroll');
+            }
+          }
+          isReplaced=true;
+        }
+      }      
+      document.addEventListener("click", MeroxIO_Function);
+      document.addEventListener("scroll", MeroxIO_Function);
+      document.addEventListener("touchstart", MeroxIO_Function);
+      document.addEventListener("mousemove", MeroxIO_Function);
+      document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll("img.merox-lazy"));;
+
+  if ("IntersectionObserver" in window && "IntersectionObserverEntry" in window && "intersectionRatio" in window.IntersectionObserverEntry.prototype) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.classList.remove("merox-lazy");
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  }
+});
+</script>

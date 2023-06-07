@@ -1,0 +1,199 @@
+<section style="background:{{section.settings.color_bg}}">
+  <div class="main-col">
+     {% if section.settings.title != blank %}
+        <h2  class="title ted">
+          {{ section.settings.title | escape }}
+        </h2>
+   {% endif %}
+    <div class="responsive rb-inner-v">
+       {% for block in section.blocks %}
+      <div class="rev-item">
+        <div class="rbf">
+        <span >
+        <img class="round" src="{{ block.settings.image | img_url: '100x' }}" alt="round-img">
+        </span>
+        <div class="rbhh">
+        <span class="rb-name">
+          {{ block.settings.subtext }}
+        </span>
+        <span class="date">
+          {{ block.settings.subtext1 }}
+        </span>
+        </div>
+        </div>
+         <div style="color:#054066">
+         {{ block.settings.para }}
+           <br>
+           {%- if block.settings.link != blank -%}
+           <a href="{{ block.settings.link }}" area-label="button">{{ block.settings.btn }}</a>
+             {% endif %}
+        </div>
+      </div>
+       {% endfor %}
+    </div>
+  </div>
+</section>
+<script>
+$( document ).ready(function() {
+  $('.responsive').slick({
+  dots: false,
+  infinite: false,
+  autoplay: false,
+     centerMode: false,
+    centerPadding: '60px',
+  speed: 300,
+    arrows: false,
+    prevArrow:"<img class='a-left1 control-c prev slick-prev' src='https://cdn.shopify.com/s/files/1/0572/4353/3448/files/g_1.png?v=1654894514'> alt='leo'",
+  nextArrow:"<img class='a-right1 control-c next slick-next' src='https://cdn.shopify.com/s/files/1/0572/4353/3448/files/g.png?v=1654894514'> alt='leo'",
+  slidesToShow: 4,
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        infinite: true,
+        dots: false
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1
+      }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+  ]
+});});
+</script>
+{% schema %}
+  {
+    "name": "reviews",
+    "settings": [
+ {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "heading list"
+      },
+      {
+  "type": "color",
+  "id": "color_bg",
+  "label": "Background",
+  "default": "#788188"
+  }
+],
+ "blocks": [
+      {
+        "type": "review",
+        "name": "review",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+		  {
+          "type": "text",
+          "id": "subtext",
+          "label": "name"
+          },
+          {
+          "type": "text",
+          "id": "subtext1",
+          "label": "Subheading"
+          },
+          {
+          "type": "textarea",
+          "id": "para",
+          "label": "text"
+          },
+		{
+          "type": "text",
+          "id": "btn",
+          "label": "button"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link",
+            "info": "Optional"
+          }
+  ]
+}
+],
+ "presets": [
+      {
+        "name": "review",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "review"
+          },
+          {
+            "type": "review"
+          },
+          {
+            "type": "review"
+          },
+          {
+            "type": "review"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+<style>
+  .rb-inner-v{
+   display:flex;
+   color:#054066;
+  }
+  .rev-item{
+    width:25%;
+    margin:5px 8px;
+    padding:20px;
+    background:white;
+    box-shadow: #00000029 0px 1px 4px;
+    height:230px;
+  }
+  .ted{
+  color:black;
+    text-align:center;
+  }
+  .rbf {
+    display: flex;
+    margin-bottom: 7px;
+    column-gap: 10px;
+}
+  .round{
+    border-radius:50%;
+    width: 60px;
+  }
+  .rb-name
+  {
+    display: block;
+    vertical-align: top;
+    color: #149dff;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  span.date {
+    font-size: 14px;
+}
+  .main-col{
+  padding:30px 0;
+      margin-bottom:10px;
+  }
+</style>

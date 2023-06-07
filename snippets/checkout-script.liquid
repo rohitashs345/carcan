@@ -1,0 +1,25 @@
+<script>
+  $(document).on('page:load page:change', function() {
+    function removeProduct(id){
+      $.ajax({
+        url: '/cart/change.js',
+        method: 'POST',
+        dataType: 'json',
+        data: {
+          quantity: 0,
+          id: id
+        },
+        success: function(data) {
+          location.reload();
+        }
+      });
+    }
+  
+    var varID = $('table.product-table tr.product[data-product-type="Shipping Protection"]').attr('data-variant-id');
+    $('table.product-table tr.product[data-product-type="Shipping Protection"]').find('.product__price').append('<p class="m_product_remove order-summary__emphasis" data-var-id="'+varID+'">Remove</p>');
+  
+    $('.m_product_remove').click(function(){
+      removeProduct($(this).attr('data-var-id'));
+    });
+  });
+</script>

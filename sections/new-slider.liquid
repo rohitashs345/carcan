@@ -1,0 +1,85 @@
+<div class="page-wi">
+  <h2>{{section.settings.title}}</h2>
+  <ul class="multiple-items">
+    {% for block in section.blocks %}
+    <li><img class="sub-image" src="{{ block.settings.Photo | img_url: 'master' }}" alt="photo1"> </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<style>
+ #shopify-section-{{ section.id }} .page-wi {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#shopify-section-{{ section.id }} .page-wi {
+    max-width: 1820px;
+    margin: 0 auto;
+}
+ #shopify-section-{{ section.id }} ul.slick-dots li.slick-active button:before {
+    font-size: 20px;
+    color: #000;
+    opacity: 1;   
+}
+
+ #shopify-section-{{ section.id }} ul.slick-dots li button{
+   color: #000;
+}
+  
+ #shopify-section-{{ section.id }} .slick-dots li a:before, .slick-dots li button:before {
+  font-size: 20px;
+  color: #000;
+  opacity: 1;
+}
+
+ #shopify-section-{{ section.id }} .slick-next, .slick-prev {
+    color: #000
+}
+  
+  #shopify-section-{{ section.id }} img.sub-image {
+    width: 100%;
+    max-width: 270px;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Slideshow-new",
+  "tag": "section",
+  "class": "slideshow",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Slideshow"
+    }
+  ],
+  "blocks": [
+     {
+       "name": "Slide",
+       "type": "slide",
+       "settings": [
+         {
+           "type": "image_picker",
+           "id": "Photo",
+           "label": "Image"
+         }
+       ]
+     }
+   ]
+}
+{% endschema %}
+
+<script>
+  $('.multiple-items').slick({
+  infinite: true,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  arrows: true,
+   dots: true
+});
+</script>
+
+
+				

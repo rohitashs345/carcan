@@ -1,0 +1,95 @@
+{{ '//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js' | script_tag }}
+{{ 'jquery.products.tmpl.min.js' | asset_url | script_tag }}
+ 
+<div class="clearfix"></div>
+
+  <div class="product-template__container page-width head-room">
+                 <header class="section-header">
+              <h2 class="section-header__title border-bottom">Recently Viewed Products</h2>         
+             </header> 
+        <aside class="grid1">
+          <div class="grid__item1">
+            <div id="recently-viewed-products" class="collection clearfix grid product-grid grid--4-col-desktop grid--2-col-tablet-down " >
+
+            </div>
+          </div>
+        </aside>  
+  </div>
+{% assign grid_item_width = 'small--one-half medium-up--one-quarter' %}
+   <div class="grid grid--uniform grid--view-items leg-room">
+      {% raw %}
+      
+      <script id="recently-viewed-product-template"  type="text/x-jquery-tmpl">
+
+      <div class="grid-item one-half-recent"  itemscope itemtype="http://schema.org/Product" >
+      <div id="product-${handle}" class="products"}>
+        <div class="image">
+          <a href="${url}">
+            <img src="${Shopify.Products.resizeImage(featured_image, "medium")}" />
+          </a>
+        </div>
+        <div class="card__information">
+        <h3 class="card__heading h5">
+          <a href="${url}" class="full-unstyled-link">
+            <span class="title">${title}</span>
+            <!--Add Price Code-->
+  
+          </a>
+      </h3>
+
+        </div>
+       
+      </div>
+      </div>
+
+      </script>
+      {% endraw %}
+
+      <script>
+      Shopify.Products.showRecentlyViewed( { howManyToShow:4 } );
+      </script>
+	</div>
+
+{% schema %}
+  {
+    "name": "Recently Products",
+    "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Recently Viewed",
+          "label": "Heading"
+        }
+	],
+      "presets": [
+    {
+      "name": "Recently Products",
+      "category": "Product"
+    }
+  ]
+  }
+{% endschema %}
+<style>
+  @media only screen and (max-width:989px){
+    #shopify-section-{{ section.id }} .grid-item.one-half-recent{
+        width: 47% !important;
+    }
+  }
+
+
+  #shopify-section-{{ section.id }} .card__information{
+    padding:1.3rem 0;
+  }
+
+  #shopify-section-{{ section.id }} .grid-item.one-half-recent {
+    width: 24%;
+}
+
+div#recently-viewed-products {
+    column-gap: 14px;
+    justify-content: space-between;
+}
+.grid-item.one-half-recent{
+    position: relative;
+}
+</style>
